@@ -10,7 +10,8 @@ import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 import { WeatherCard } from './components/WeatherCard';
 import { SearchField } from './components/SearchField';
 import { useFetch } from './hooks/useFetch'
-import { Forecast, CurrentWeather } from './models/Forecast';
+import { Forecast } from './types/Forecast';
+import { CurrentWeather } from './types/CurrentWeather';
 import { DailyForecast } from './components/DailyForecast';
 
 const cityName = 'Rajahmundry,IN';

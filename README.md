@@ -32,7 +32,7 @@ To use this app, follow these steps:
 - Clone the repository or download the source code.
 - Open the project in your preferred code editor.
 - Run `npm install` to install all the necessary dependencies.
-- Run `npm run dev` to start the development server.
+- Run `npm run dev` to start the development server on `http://localhost:5173/`.
 - Run `npm run test` to run the unit tests.
 
 To use the app, simply type the name of the city you want to search for in the search bar and press Enter. The app will display the current weather conditions for the searched city.
