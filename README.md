@@ -1,6 +1,6 @@
-## React Weather App
+## React WeatherForecast App
 ![](docs/weather-app.gif)
-React Weather App is developed using **React + TypeScript + Vite + OpenWeatherMapAPI**.
+React WeatherForecast App is developed using **React + TypeScript + Vite + OpenWeatherMapAPI**.
 
 User can search a city by name and can see the current weather details of the city (like temperature in celsius, weather description, sunset time, humidty, wind speed, pressure, feels_like, visibility etc) and 5 days weather forecast with 3-hour step.
 
