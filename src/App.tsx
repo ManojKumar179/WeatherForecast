@@ -44,10 +44,15 @@ function App() {
           <WeatherCard
             data={currentWeatherResponse.data}
             loading={currentWeatherResponse.loading}
+            error={currentWeatherResponse.error || currentWeatherResponse.data?.cod === '404' || currentWeatherResponse.data?.cod === '500'}
           />
         </Grid>
         <Grid item xs={6} data-testid='daily-forecast-section'>
-          <DailyForecast data={forecastResponse.data} loading={forecastResponse.loading} />
+          <DailyForecast
+            data={forecastResponse.data}
+            loading={forecastResponse.loading}
+            error={forecastResponse.error || forecastResponse.data?.cod === '404' || forecastResponse.data?.cod === '500'}
+          />
         </Grid>
       </Grid>
     </Container>

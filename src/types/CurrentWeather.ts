@@ -17,6 +17,7 @@ export type CurrentWeather = {
   id: number;
   timezone: number;
   name: string;
-  cod: string;
+  cod: string | number;
   sys: Sys;
+  message?: string;
 };

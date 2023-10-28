@@ -11,20 +11,22 @@ import { Forecast } from '../types/Forecast';
 import { List } from '../types/List';
 import { HourlyForecast } from './HourlyForecast';
 import { Loader } from './Loader';
+import { Error } from './Error';
 
 type DailyForecastProps = {
   data: Forecast | null;
-  loading: boolean; 
+  loading: boolean;
+  error: boolean;
 }
 
-export const DailyForecast = ({ data, loading }: DailyForecastProps) => {
+export const DailyForecast = ({ data, loading, error }: DailyForecastProps) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const handleChange =
     (panel: string) => (_: SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const modifedData = useMemo(() => data?.list.reduce((acc: { [key: string]: List[]}, curr: List) => {
+  const modifedData = useMemo(() => data?.list?.reduce((acc: { [key: string]: List[]}, curr: List) => {
     const date = new Date(curr.dt_txt).toLocaleDateString('en', {
       dateStyle: 'short'
     });
@@ -41,7 +43,8 @@ export const DailyForecast = ({ data, loading }: DailyForecastProps) => {
   return (
     <Card sx={{ display: 'flex', borderRadius: 3, justifyContent: 'center', alignItems: 'center', minHeight: '400px' }} data-testid='daily-forecast-card'>
       {loading && <Loader size={40}/>}
-      {!loading && <CardContent>
+      {error && <Error message='City Not Found' />}
+      {!loading && !error && <CardContent>
         <Typography variant='h6' paddingBottom={2} data-testid='daily-forecast-title'>
           Daily Forecast
         </Typography>

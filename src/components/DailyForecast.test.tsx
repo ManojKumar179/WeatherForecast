@@ -6,6 +6,7 @@ import { Forecast } from '../types/Forecast';
 describe('<DailyForecast />', () => {
   const props = {
     loading: false,
+    error: false,
     data: {
       cod: '200',
       message: 0,
@@ -111,7 +112,7 @@ describe('<DailyForecast />', () => {
   });
 
   it('should show loader when loading prop is true', () => {
-    reRender(<DailyForecast data={null} loading={true} />);
+    reRender(<DailyForecast data={null} loading={true} error={false} />);
 
     const loader = screen.getByTestId('loader');
 
@@ -160,4 +161,21 @@ describe('<DailyForecast />', () => {
     expect(screen.queryAllByTestId('daily-forecast-accordion-details')[0]).toBeVisible();
     expect(screen.queryAllByTestId('daily-forecast-accordion-details')[1]).not.toBeVisible();
   })
+
+  it('should render Error Component when error is true', () => {
+    reRender(<DailyForecast loading={false} data={null} error={true} />)
+    const errorContainer = screen.getByTestId('error-container');
+    const errorMessage = screen.getByTestId('error-message');
+
+    expect(errorContainer).toBeVisible();
+    expect(errorMessage.textContent).toEqual('City Not Found');
+  })
+
+  it('should not render Error component when error is not false', () => {
+    reRender(<DailyForecast {...props} />);
+
+    const errorContainer = screen.queryByTestId('error-container');
+
+    expect(errorContainer).not.toBeInTheDocument();
+  });
 });
