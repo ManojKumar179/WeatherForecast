@@ -3,7 +3,7 @@ import { City } from './City';
 
 export type Forecast = {
   cod: string;
-  message: number;
+  message: number | string;
   cnt: number;
   list: List[];
   city: City;

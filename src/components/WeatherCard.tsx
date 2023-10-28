@@ -12,17 +12,20 @@ import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 
 import { CurrentWeather } from '../types/CurrentWeather';
 import { Loader } from './Loader';
+import { Error } from './Error';
 
 type WeatherCardProps = {
   data: CurrentWeather | null;
   loading: boolean;
+  error: boolean;
 }
 
-export const WeatherCard = ({ data, loading }: WeatherCardProps) => {
+export const WeatherCard = ({ data, loading, error }: WeatherCardProps) => {
   return (
    <Card sx={{ width: '400px', borderRadius: 3,  minHeight: '400px', justifyContent: 'center', alignItems: 'center', display: 'flex' }} data-testid='current-weather-card'>
     {loading && <Loader size={40} />}
-    {!loading && (
+    {error && data?.cod !== 200 && <Error message='City Not Found'/>}
+    {!loading && !error && (
       <CardContent sx={{ paddingX: 4 }}>
         <Grid container sx={{
           justifyContent: 'space-between',

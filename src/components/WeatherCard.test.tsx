@@ -49,6 +49,7 @@ describe('<WeatherCard />', () => {
       cod: '200'
     } as CurrentWeather,
     loading: false,
+    error: false
   };
 
   let reRender: (ui: React.ReactElement) => void;
@@ -69,6 +70,7 @@ describe('<WeatherCard />', () => {
     const newProps = {
       loading: true,
       data: null,
+      error: false,
     };
     
     reRender(<WeatherCard {...newProps} />);
@@ -82,6 +84,7 @@ describe('<WeatherCard />', () => {
     const newProps = {
       ...props,
       loading: false,
+      error: false
     }
     reRender(<WeatherCard {...newProps} />);
 
@@ -102,7 +105,7 @@ describe('<WeatherCard />', () => {
   });
 
   it('should render Current Temperature Section with No data', () => {
-    reRender(<WeatherCard data={null} loading={false} />);
+    reRender(<WeatherCard data={null} loading={false} error={false}/>);
 
     const degrees = screen.getByTestId('degrees');
     const city = screen.getByTestId('city');
@@ -155,6 +158,7 @@ describe('<WeatherCard />', () => {
     const newProps = {
       loading: false,
       data: null,
+      error: false,
     };
     
     reRender(<WeatherCard {...newProps} />);
@@ -190,5 +194,22 @@ describe('<WeatherCard />', () => {
     expect(pressureIcon).toBeVisible();
     expect(pressureLabel.textContent).toEqual('Pressure');
     expect(pressureValue.textContent).toEqual('--');
+  });
+
+  it('should render Error Component when error is true', () => {
+    reRender(<WeatherCard loading={false} data={null} error={true} />)
+    const errorContainer = screen.getByTestId('error-container');
+    const errorMessage = screen.getByTestId('error-message');
+
+    expect(errorContainer).toBeVisible();
+    expect(errorMessage.textContent).toEqual('City Not Found');
+  })
+
+  it('should not render Error component when error is not false', () => {
+    reRender(<WeatherCard {...props} />);
+
+    const errorContainer = screen.queryByTestId('error-container');
+
+    expect(errorContainer).not.toBeInTheDocument();
   });
 });
